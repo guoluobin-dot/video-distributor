@@ -1,0 +1,14 @@
+# 视频分发工具的核心功能只用 Python 标准库（含 tkinter），无需安装任何依赖即可运行：
+#     python video_distributor.py
+#
+# 下面这两个是【可选增强】，装了就更好用：
+
+# 拖拽支持。没有它程序仍能正常启动，只是不能用鼠标拖入文件/文件夹，
+# 需要改用界面上的【+素材文件夹】/【+添加文件夹】按钮。
+# 打包 exe 时也建议装上（打包脚本会自动 --collect-all tkinterdnd2）。
+tkinterdnd2==0.6.3
+
+# 打包 exe 用。只在你想生成单文件可执行程序时才需要：
+#     pip install pyinstaller==6.10.0
+#     python -m PyInstaller --noconfirm VideoDistributor.spec
+pyinstaller==6.10.0

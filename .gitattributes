@@ -1,0 +1,16 @@
+# 统一换行，避免 Windows/Linux 协作时整文件 diff
+* text=auto eol=lf
+
+*.py    text eol=lf diff=python
+*.md    text eol=lf
+*.txt   text eol=lf
+*.spec  text eol=lf
+*.json  text eol=lf
+
+# 二进制，明确不做换行转换
+*.exe   binary
+*.png   binary
+*.jpg   binary
+*.m4a   binary
+*.mp4   binary
+*.wav   binary

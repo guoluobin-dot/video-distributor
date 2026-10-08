@@ -1,0 +1,68 @@
+# ---- 构建产物 ----
+*.exe
+*.pyd
+*.dll
+*.so
+*.dylib
+*.bak
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---- ffmpeg：体积大且有自己的许可证，请自行下载（见 README）----
+ffmpeg.exe
+ffmpeg
+
+# ---- 外部依赖：Ollama 运行时 + 本地大模型（约 12.5GB），第三方内容 ----
+# 详见 README「Ollama 说明」。属可选功能，代码里已做降级，没有它也能正常跑。
+外部依赖/
+外部资源/
+
+# ---- 用户素材：音乐库 / 命名库属于用户自己的版权内容，仓库不含 ----
+# 用 .gitignore 而非删除，这样你本地的音乐库还在，但不会被提交。
+音乐库/
+命名库/
+
+# ---- 启动器：面向本地 exe 的双击启动脚本，源码用户用不到 ----
+启动.bat
+启动视频分发工具.vbs
+换电脑使用步骤.txt
+视频分发工具_设计文档.md
+
+# ---- 运行期数据：包含你的真实路径，绝不能提交 ----
+video_distributor_config.json
+distribute_log_*.csv
+dub_debug_*.log
+*_debug.log
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 凭据：万一以后加了本地配置，务必不要提交 ----
+.env
+.env.*
+*.pem
+*.key
+secrets.json
