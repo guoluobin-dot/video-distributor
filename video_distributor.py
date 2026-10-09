@@ -3190,10 +3190,10 @@ class SplitPage(tk.Frame):
         # 【打开/移除选中来源】按钮会被压成 1px、文件列表直接被挤出面板（看着像一条空缝）。
         # 改成 grid 后两张表各占一行、都带权重，剩余空间平分，任何高度下都露得出来。
         left.columnconfigure(0, weight=1)
-        # 两张表的 minsize 要留够余量：左栏固定行(按钮+来源行+说明)约 95px，
-        # 面板可用高度只有 ~200px，两张表加起来不能超过这个数，
-        # 否则 grid 不会压缩子控件，列表框就会溢出面板外。
-        for _r, _wt, _ms in ((0, 0, 0), (1, 0, 0), (2, 1, 40), (3, 0, 0), (4, 1, 40)):
+        # 左栏固定行(按钮+来源行+说明)约 95px，剩下的分给两张表。
+        # 表格区权重给大一点：来源表是主信息，至少要露得出表头 + 1 行
+        # （表头 24px + 行高 24px），否则行会被裁掉，看着像"加了却没显示"。
+        for _r, _wt, _ms in ((0, 0, 0), (1, 0, 0), (2, 1, 62), (3, 0, 0), (4, 1, 46)):
             left.rowconfigure(_r, weight=_wt, minsize=_ms)
 
         lbtn = tk.Frame(left, bg=PANEL)
@@ -3219,14 +3219,15 @@ class SplitPage(tk.Frame):
         sframe.grid(row=2, column=0, sticky="nsew", pady=(2, 0))
         sframe.rowconfigure(0, weight=1)
         sframe.columnconfigure(0, weight=1)
-        self.src_tree = ttk.Treeview(sframe, columns=("path", "n"), show="headings", height=2)
+        self.src_tree = ttk.Treeview(sframe, columns=("path", "n"), show="headings", height=3)
         self.src_tree.heading("path", text="素材文件夹")
         self.src_tree.heading("n", text="素材数")
         self.src_tree.column("path", width=150, minwidth=80, stretch=True)
         self.src_tree.column("n", width=60, anchor="center")
         self.src_tree.grid(row=0, column=0, sticky="nsew")
-        ssb = tk.Scrollbar(sframe, command=self.src_tree.yview, orient="horizontal")
-        self.src_tree.configure(yscrollcommand=ssb.set)
+        # 横向滚动条绑 xview/xscrollcommand（原来错绑成 yview，横向根本拖不动）
+        ssb = tk.Scrollbar(sframe, command=self.src_tree.xview, orient="horizontal")
+        self.src_tree.configure(xscrollcommand=ssb.set)
         ssb.grid(row=1, column=0, sticky="ew")
         self.src_tree.bind("<Double-1>", self.source_open)
 
